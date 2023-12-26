@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  math-service:
+    build: ./math_py
+    container_name: math-service
+    volumes:
+      - ./math_py:/app 
+
+  string-service:
+    build: ./string_py
+    container_name: string-service
+    volumes:
+      - ./string_py:/app 
+
+  log-service:
+    build: ./log_js
+    container_name: log-service
+    volumes:
+      - ./log_js:/app
+
+  gateway-service:
+    build: ./gateway
+    container_name: gateway-service
+    volumes:
+      - ./gateway:/app 
+    ports:
+      - "5000:5000"
+    depends_on:
+      - math-service
+      - string-service
